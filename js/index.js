@@ -23,8 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const li = document.createElement("li");
             li.textContent = item.login;
             userList.appendChild(li);
+            displayUserNamesRepos(item.login)
+
        })
       })      
     }})
+     // Fetch uers respos from 
+     function displayUserNamesRepos(username){
+      fetch(`https://api.github.com/users/${username}/repos`)
+      .then(response => response.json())
+      .then(data => {
+        const reposList = document.querySelector("#repos-list")
+        reposList.textContent = ""
+        data.forEach(repo => {
+          const li = document.createElement("li")
+          li.textContent = repo.name
+          reposList.appendChild(li)
 
-
+        })
+     })
+     }
+    
